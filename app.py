@@ -11,7 +11,7 @@ import open_clip
 from sklearn.decomposition import PCA
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-IMAGE_FOLDER = "static/images/train2014"
+IMAGE_FOLDER = "static/images/coco_images_resized"
 
 # Load the embeddings
 df = pd.read_pickle('image_embeddings.pickle')
@@ -91,7 +91,7 @@ def index():
             return render_template('index.html', error="Please provide at least a text query or an image.")
 
         results = search_similar(query, use_pca=use_pca, k_pca=k_pca, top_k=5)
-        result_images = [(os.path.join('static', 'images', 'train2014', fname), score) for fname, score in results]
+        result_images = [(os.path.join('static', 'images', 'coco_images_resized', fname), score) for fname, score in results]
 
         return render_template('results.html', 
                                results=result_images, 
@@ -101,9 +101,9 @@ def index():
                                lam=lam)
     return render_template('index.html')
 
-@app.route('/static/images/train2014/<filename>')
+@app.route('/static/images/coco_images_resized/<filename>')
 def send_image(filename):
-    return send_from_directory(os.path.join('static', 'images', 'train2014'), filename)
+    return send_from_directory(os.path.join('static', 'images', 'coco_images_resized'), filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
