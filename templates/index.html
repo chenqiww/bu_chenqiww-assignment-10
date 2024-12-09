@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Search</title>
+</head>
+<body>
+    <h1>Image Search</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="text_query">Text Query (optional):</label>
+            <input type="text" id="text_query" name="text_query" />
+        </div>
+        <div>
+            <label for="image_query">Image Query (optional):</label>
+            <input type="file" id="image_query" name="image_query" accept="image/*" />
+        </div>
+        <div>
+            <label for="lambda">Lambda (weight for text between 0.0 and 1.0):</label>
+            <input type="text" id="lambda" name="lambda" value="0.5" />
+        </div>
+        <div>
+            <label><input type="checkbox" name="use_pca" /> Use PCA embeddings</label>
+            <label for="k_pca">Number of principal components:</label>
+            <input type="text" id="k_pca" name="k_pca" value="64" />
+        </div>
+        <button type="submit">Search</button>
+        {% if error %}
+        <p style="color:red;">{{ error }}</p>
+        {% endif %}
+    </form>
+</body>
+</html>
